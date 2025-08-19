@@ -1,98 +1,244 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# NestJS CRUD Application with Authentication & RBAC
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A comprehensive NestJS application featuring JWT authentication, Role-Based Access Control (RBAC), and full CRUD operations for user management, roles, and permissions.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- 🔐 **JWT Authentication** - Login/Register with JWT tokens
+- 👥 **User Management** - Complete CRUD operations for users
+- 🛡️ **Role-Based Access Control** - Fine-grained permissions system
+- 📊 **Pagination & Search** - Advanced filtering and pagination
+- 📚 **Swagger Documentation** - Complete API documentation
+- 🔍 **Logging & Error Handling** - Comprehensive logging and error management
+- 🗄️ **TypeORM Integration** - Database migrations and seeding
+- ✅ **Validation** - Request/response validation with class-validator
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Tech Stack
 
-## Project setup
+- **Framework**: NestJS
+- **Database**: MySQL with TypeORM
+- **Authentication**: JWT with Passport
+- **Documentation**: Swagger/OpenAPI
+- **Validation**: class-validator & class-transformer
+- **Testing**: Jest (setup included)
 
-```bash
-$ yarn install
-```
+## Quick Start
 
-## Compile and run the project
+### 1. Install Dependencies
 
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+npm install
 ```
 
-## Run tests
+### 2. Environment Setup
+
+Create a `.env` file in the root directory:
+
+```env
+# Database Configuration
+DB_TYPE=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_USERNAME=root
+DB_PASSWORD=password
+DB_NAME=nestjs_crud_app
+
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-change-in-production
+JWT_EXPIRES_IN=24h
+
+# Application Configuration
+APP_PORT=3000
+NODE_ENV=development
+
+# Swagger Configuration
+SWAGGER_TITLE=NestJS CRUD API
+SWAGGER_DESCRIPTION=A comprehensive CRUD API with authentication and RBAC
+SWAGGER_VERSION=1.0
+```
+
+### 3. Database Setup
+
+Make sure MySQL is running and create the database:
+
+```sql
+CREATE DATABASE nestjs_crud_app;
+```
+
+### 4. Run Migrations & Seed Data
 
 ```bash
-# unit tests
-$ yarn run test
+# Generate and run migrations
+npm run migration:generate -- src/migrations/InitialMigration
+npm run migration:run
 
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+# Seed initial data (creates admin user and default roles/permissions)
+npm run seed
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 5. Start the Application
 
 ```bash
-$ yarn install -g @nestjs/mau
-$ mau deploy
+# Development mode
+npm run start:dev
+
+# Production mode
+npm run build
+npm run start:prod
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## API Documentation
 
-## Resources
+Once the application is running, visit:
+- **API Documentation**: http://localhost:3000/api
+- **Application**: http://localhost:3000
 
-Check out a few resources that may come in handy when working with NestJS:
+## Default Admin User
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+After seeding, you can login with:
+- **Email**: admin@example.com
+- **Password**: admin123
 
-## Support
+## API Endpoints
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Authentication
+- `POST /auth/login` - User login
+- `POST /auth/register` - User registration
+- `GET /auth/profile` - Get current user profile
 
-## Stay in touch
+### Users Management
+- `GET /users` - Get all users (paginated)
+- `POST /users` - Create new user
+- `GET /users/:id` - Get user by ID
+- `PATCH /users/:id` - Update user
+- `DELETE /users/:id` - Delete user
+- `GET /users/profile` - Get current user profile
+- `PATCH /users/profile` - Update current user profile
+- `PATCH /users/profile/password` - Change password
+- `POST /users/:id/roles` - Assign roles to user
+- `DELETE /users/:id/roles` - Remove roles from user
+- `PATCH /users/:id/toggle-status` - Toggle user active status
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Roles Management
+- `GET /roles` - Get all roles (paginated)
+- `POST /roles` - Create new role
+- `GET /roles/:id` - Get role by ID
+- `PATCH /roles/:id` - Update role
+- `DELETE /roles/:id` - Delete role
+- `POST /roles/:id/permissions` - Assign permissions to role
+- `DELETE /roles/:id/permissions` - Remove permissions from role
 
-## License
+### Permissions Management
+- `GET /permissions` - Get all permissions (paginated)
+- `POST /permissions` - Create new permission
+- `GET /permissions/:id` - Get permission by ID
+- `PATCH /permissions/:id` - Update permission
+- `DELETE /permissions/:id` - Delete permission
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+## Permission System
+
+The application uses a resource-action based permission system:
+
+### Default Permissions
+- `users:create`, `users:read`, `users:update`, `users:delete`
+- `roles:create`, `roles:read`, `roles:update`, `roles:delete`
+- `permissions:create`, `permissions:read`, `permissions:update`, `permissions:delete`
+
+### Using Permissions in Controllers
+
+```typescript
+@RequirePermissions('users:read')
+@Get()
+getAllUsers() {
+  // Only users with 'users:read' permission can access this
+}
+```
+
+## Database Commands
+
+```bash
+# Generate new migration
+npm run migration:generate -- src/migrations/MigrationName
+
+# Create empty migration
+npm run migration:create -- src/migrations/MigrationName
+
+# Run migrations
+npm run migration:run
+
+# Revert last migration
+npm run migration:revert
+
+# Show migration status
+npm run migration:show
+
+# Drop all database schema
+npm run schema:drop
+
+# Reset database (drop, migrate, seed)
+npm run db:reset
+```
+
+## Project Structure
+
+```
+src/
+├── auth/                   # Authentication module
+├── users/                  # User management module
+├── roles/                  # Role management module
+├── permissions/            # Permission management module
+├── common/                 # Shared components
+│   ├── decorators/         # Custom decorators
+│   ├── dto/               # Data transfer objects
+│   ├── filters/           # Exception filters
+│   ├── guards/            # Authorization guards
+│   ├── helpers/           # Utility helpers
+│   └── interceptors/      # Request/response interceptors
+├── config/                # Configuration files
+├── entities/              # TypeORM entities
+├── migrations/            # Database migrations
+└── seeders/              # Database seeders
+```
+
+## Development
+
+```bash
+# Start in watch mode
+npm run start:dev
+
+# Run linting
+npm run lint
+
+# Format code
+npm run format
+
+# Run tests
+npm run test
+
+# Run e2e tests
+npm run test:e2e
+```
+
+## Authentication Flow
+
+1. **Register/Login** - User provides credentials
+2. **JWT Token** - Server returns JWT token on successful authentication
+3. **Authorization Header** - Client includes token in `Authorization: Bearer <token>` header
+4. **Permission Check** - Server validates token and checks user permissions for each request
+
+## Error Handling
+
+The application includes comprehensive error handling:
+- **Global Exception Filter** - Catches and formats all exceptions
+- **Validation Errors** - Automatic validation with detailed error messages
+- **HTTP Status Codes** - Proper status codes for different scenarios
+- **Logging** - All requests and errors are logged
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Run linting and formatting
+6. Submit a pull request
